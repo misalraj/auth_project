@@ -5,6 +5,7 @@ from rest_framework.views import APIView
 from .serializers import UserRegistrationSerializer
 from django.contrib.auth import authenticate, login
 from rest_framework.permissions import IsAuthenticated
+from django.contrib.auth import logout
 
 
 class UserRegistrationView(APIView):
@@ -41,3 +42,10 @@ class UserDetailsView(APIView):
             'email': user.email,
             # Add other user details here
         })
+
+class UserLogoutView(APIView):
+    def post(self, request):
+        logout(request)
+        response = Response({"message": "Logout successful."}, status=status.HTTP_200_OK)
+        response.delete_cookie('auth_token')
+        return response
