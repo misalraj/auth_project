@@ -142,3 +142,8 @@ SWAGGER_SETTINGS = {
     },
     'USE_SESSION_AUTH': True,
 }
+
+SESSION_COOKIE_HTTPONLY = True
+SESSION_COOKIE_SECURE = True  # Set to False for local development without HTTPS
+CSRF_COOKIE_HTTPONLY = True
+CSRF_COOKIE_SECURE = True    # Set to False for local development without HTTPS
