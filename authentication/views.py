@@ -4,6 +4,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from .serializers import UserRegistrationSerializer
 from django.contrib.auth import authenticate, login
+from rest_framework.permissions import IsAuthenticated
 
 
 class UserRegistrationView(APIView):
@@ -30,3 +31,13 @@ class UserLoginView(APIView):
             response.set_cookie('auth_token', 'your_auth_token', httponly=True, secure=True)
             return response
         return Response({"message": "Invalid credentials."}, status=status.HTTP_401_UNAUTHORIZED)
+
+class UserDetailsView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        user = request.user
+        return Response({
+            'email': user.email,
+            # Add other user details here
+        })
